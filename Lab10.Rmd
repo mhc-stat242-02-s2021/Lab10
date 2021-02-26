@@ -1,0 +1,69 @@
+---
+title: "Lab 10"
+subtitle: "STAT 242: Intermediate Statistics"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Nursing Salaries.
+
+We have data about 52 licensed nursing home facilities in New Mexico, collected by the Department of Health and Social Services of the State of New Mexico.  Let's use these data to estimate the relationship between the salaries of nurses at a given facility (`NurseSalaries`, our response variable) and a variety of other characteristics of the facility.  The variables in the data set are:
+
+ * `Beds`: Number of beds in the nursing home
+ * `InPatientDays`: Annual medical in-patient days (in hundreds)
+ * `AllPatientDays`: Annual total patient days (in hundreds)
+ * `PatientRevenue`: Annual patinet care revenue (in hundreds of dollars)
+ * `Rural`: Either "Rural" or "Non-Rural"
+ * `NurseSalaries`: Annual nursing salaries (in hundreds of dollars)
+
+I have removed three outlying/high leverage observations.  In order to focus on other aspects of the analysis, for today we will ignore these data points (ordinarily, we should check and see whether our conclusions depend on whether those observations are included).
+
+```{r, echo = FALSE, message = FALSE}
+nursing <- read_csv("https://marievozanne.github.io/stat242/datasets/nursing.csv")
+nursing <- nursing %>%
+  select(Beds, InPatientDays, AllPatientDays, PatientRevenue, Rural, NurseSalaries) %>%
+  mutate(
+    Rural = ifelse(Rural, "Rural", "Non-Rural")
+  ) %>%
+  slice(-c(1, 12, 26))
+head(nursing)
+```
+
+#### Make a pairs plot of the data.
+
+```{r, warning=FALSE, message=FALSE, fig.height = 4.5, fig.width=7.5}
+library(GGally)
+
+```
+
+#### 1. Based on the pairs plot, perform an initial check of the conditions of linearity, equal variance, and no outliers/high leverage observations. Note any potential problems with these conditions, and propose possible transformations, if necessary.
+
+
+
+#### 2. Based on the pairs plot, which of the explanatory variables appear to have the strongest association with nursing salaries? Which variables appear to have the strongest association with each other?
+
+
+
+#### 3. Create added variable plots using the `avPlot` function from yesterday's notes. What do the plots suggest about what should be in the model? Remember, we should see strong associations in these plots if the variables can add additional information, and weak associations if they cannot.
+
+```{r}
+library(car)
+
+
+```
+
+
+#### 4. Using all subsets regression, find the model that has the lowest BIC value. You should start with the model that has all 5 predictors in an additive model (no interactions). Summarize the results of the model that has the smallest BIC. If any of the models are comparable (and have the lowest BICs), summarize the simplest model (with the smallest number of parameters).
+
+```{r}
+library(leaps)
+
+
+```
+
+
+#### 5. Consider your results from 3. and 4. Are the variables that showed up in your final model(s) for 4. what you would expect based on 3? 
+
